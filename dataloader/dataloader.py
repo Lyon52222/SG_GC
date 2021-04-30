@@ -67,10 +67,10 @@ class SGDataLoader(Dataset):
             weights = [0]*len(box_labels)
             for i, pair in enumerate(all_rel_pairs):
                 weights[pair[0]] = weights[pair[0]] + \
-                    (all_rel_scores[i] if all_rel_scores[i]
+                    (1 if all_rel_scores[i]
                      > self.threshold else 0)
                 weights[pair[1]] = weights[pair[1]] + \
-                    (all_rel_scores[i] if all_rel_scores[i]
+                    (1 if all_rel_scores[i]
                      > self.threshold else 0)
 
             center = weights.index(max(weights))
