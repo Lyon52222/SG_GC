@@ -4,6 +4,9 @@ def parse_opt():
     parser = argparse.ArgumentParser()
     ####### Original hyper-parameters #######
     # Data input settings
+    parser.add_argument('--threshold', type=float, default=0.8, help='the shreshold of useful rel')
+    parser.add_argument('--filter_method', type=str, default='topk', help='the method of filter scene graph')
+
     parser.add_argument('--custom_data_info_json', type=str, default='data/custom_data_info.json',
                     help='path to the json file containing data infos')
 
@@ -12,12 +15,12 @@ def parse_opt():
 
     parser.add_argument('--box_topk', type=int, default=5,
                     help='the topk boxs you will select')
-    
+
     parser.add_argument('--rel_topk', type=int, default=10,
                     help='the topk rels you will select')
-    
+
     parser.add_argument('--start_from', type=str, default=None,
-                    help="""continue training from saved model at this path. Path must contain files saved by previous training process: 
+                    help="""continue training from saved model at this path. Path must contain files saved by previous training process:
                         'infos.pkl'         : configuration;
                         'checkpoint'        : paths to model file(s) (created by tf).
                                               Note: this file contains absolute paths, be careful when moving files around;
@@ -52,7 +55,7 @@ def parse_opt():
     # Optimization: General
     parser.add_argument('--max_epochs', type=int, default=-1,
                     help='number of epochs')
-    parser.add_argument('--batch_size', type=int, default=2,
+    parser.add_argument('--batch_size', type=int, default=1,
                     help='minibatch size')
     parser.add_argument('--grad_clip', type=float, default=0.1, #5.,
                     help='clip gradients at this value')
@@ -63,26 +66,26 @@ def parse_opt():
     parser.add_argument('--seq_per_img', type=int, default=5,
                     help='number of captions to sample for each image during training. Done for efficiency since CNN forward pass is expensive. E.g. coco has 5 sents/image')
 
- 
+
     ####### Graph captioning model hyper-parameters #######
-   
-    parser.add_argument('--embed_dim', type=int, default=300, 
+
+    parser.add_argument('--embed_dim', type=int, default=300,
                     help='dim of word embeddings')
-    parser.add_argument('--gcn_dim', type=int, default=1024, 
+    parser.add_argument('--gcn_dim', type=int, default=1024,
                     help='dim of the node/edge features in GCN')
-    parser.add_argument('--pred_emb_type', type=int, default=1, 
+    parser.add_argument('--pred_emb_type', type=int, default=1,
                     help='predicate embedding type')
-    parser.add_argument('--gcn_layers', type=int, default=2, 
+    parser.add_argument('--gcn_layers', type=int, default=2,
                     help='the layer number of GCN')
     parser.add_argument('--gcn_residual', type=int, default=2,
                     help='2: there is a skip connection every 2 GCN layers')
-    parser.add_argument('--gcn_bn', type=int, default=0, 
+    parser.add_argument('--gcn_bn', type=int, default=0,
                     help='0: not use BN in GCN layers')
-    parser.add_argument('--sampling_prob', type=float, default=0.0, 
+    parser.add_argument('--sampling_prob', type=float, default=0.0,
                     help='Schedule sampling probability')
-   
 
-    
+
+
 
     args = parser.parse_args()
 

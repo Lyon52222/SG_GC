@@ -38,6 +38,8 @@ class SG_GCN(Module):
         
         #这里的obj_dist 对应为(b*N*sg_obj_cnt) 每个值对应N 属于那种obj的概率。
         #att_feats = self.obj_emb_proj(self.sg_obj_embed(obj_dist.view(-1, self.sg_obj_cnt)[:,1:].max(1)[1] + 1)).view(obj_dist.size(0), obj_dist.size(1), self.GCN_dim)
+
+
         att_feats = self.obj_emb_proj(self.sg_obj_embed(obj_dist.view(-1, 1))).view(obj_dist.size(0), obj_dist.size(1), self.GCN_dim)    
         #pred_fmap = self.pred_emb_prj(self.sg_pred_embed(pred_dist.view(-1, self.sg_pred_cnt)[:,1:].max(1)[1] + 1)).view(pred_dist.size(0), pred_dist.size(1), self.GCN_dim) 
         pred_fmap = self.pred_emb_prj(self.sg_pred_embed(pred_dist.view(-1, 1))).view(pred_dist.size(0), pred_dist.size(1), self.GCN_dim) 
