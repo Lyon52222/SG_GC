@@ -10,10 +10,14 @@ if __name__ == '__main__':
     model = SG_GCN(opt, loader.get_classes(), loader.get_predicates())
 
 
-    for batch_labels, batch_rel_labels, batch_rels in train_loader:
+    for batch_labels, batch_features, batch_rel_labels, batch_rels in train_loader:
         print(batch_labels[0])
         #batch_size,object_nums
         print(batch_labels.shape)
+        print('---')
+        print(batch_features[0])
+        #batch_size,object_nums,feature_size
+        print(batch_features.shape)
         print('---')
         print(batch_rel_labels[0])
         #batch_size,rel_nums
@@ -25,7 +29,7 @@ if __name__ == '__main__':
 
         print('over')
 
-        output =  model(batch_labels, batch_rels, batch_rel_labels)
+        output =  model(batch_labels,batch_features, batch_rels, batch_rel_labels)
         #batch_size,object_nums,embedding_size
         print(output[0].shape)
         #batch_size,rel_nums,embedding_size

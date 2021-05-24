@@ -40,18 +40,16 @@ def obj_edge_vectors(names, wv_type='glove.6B', wv_dir='data/', wv_dim=300):
                 print("Fail on {}".format(token))
             else:
                 vectors[i] = temp / float(got)
-            """
-            # Try the longest word (hopefully won't be a preposition
-            lw_token = sorted(token.split(' '), key=lambda x: len(x), reverse=True)[0]
-            # for noun, the last one word is generally the main meaning
-            lw_token = token.split(' ')[-1]  
-            print("{} -> {} ".format(token, lw_token))
-            wv_index = wv_dict.get(lw_token, None)
-            if wv_index is not None:
-                vectors[i] = wv_arr[wv_index]
-            else:
-                print("fail on {}".format(token))
-            """
+            # # Try the longest word (hopefully won't be a preposition
+            # lw_token = sorted(token.split(' '), key=lambda x: len(x), reverse=True)[0]
+            # # for noun, the last one word is generally the main meaning
+            # lw_token = token.split(' ')[-1]  
+            # print("{} -> {} ".format(token, lw_token))
+            # wv_index = wv_dict.get(lw_token, None)
+            # if wv_index is not None:
+                # vectors[i] = wv_arr[wv_index]
+            # else:
+                # print("fail on {}".format(token))
     return vectors
 
 URL = {

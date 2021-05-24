@@ -4,13 +4,21 @@ def parse_opt():
     parser = argparse.ArgumentParser()
     ####### Original hyper-parameters #######
     # Data input settings
+    parser.add_argument('--object_feature_size',default=4096, help="image features size")
     parser.add_argument('--threshold', type=float, default=0.8, help='the shreshold of useful rel')
-    parser.add_argument('--filter_method', type=str, default='topk', help='the method of filter scene graph')
 
-    parser.add_argument('--custom_data_info_json', type=str, default='data/custom_data_info.json',
+    parser.add_argument('--filter_method', type=str, default='center', help='the method of filter scene graph')
+
+    parser.add_argument('--custom_data_info_json', type=str, default='data/performance_test_1/custom_data_info.json',
                     help='path to the json file containing data infos')
 
-    parser.add_argument('--custom_prediction_json', type=str, default='data/custom_prediction.json',
+    parser.add_argument('--custom_prediction_json', type=str, default='data/performance_test_1/custom_prediction.json',
+                    help='path to the json file containing prediction infos')
+
+    parser.add_argument('--topk_custom_prediction_json', type=str, default='data/performance_test_1/topk_custom_prediction.json',
+                    help='path to the json file containing prediction infos')
+
+    parser.add_argument('--center_custom_prediction_json', type=str, default='data/performance_test_1/center_custom_prediction.json',
                     help='path to the json file containing prediction infos')
 
     parser.add_argument('--box_topk', type=int, default=5,
@@ -55,7 +63,7 @@ def parse_opt():
     # Optimization: General
     parser.add_argument('--max_epochs', type=int, default=-1,
                     help='number of epochs')
-    parser.add_argument('--batch_size', type=int, default=1,
+    parser.add_argument('--batch_size', type=int, default=2,
                     help='minibatch size')
     parser.add_argument('--grad_clip', type=float, default=0.1, #5.,
                     help='clip gradients at this value')
